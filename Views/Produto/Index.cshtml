@@ -1,0 +1,25 @@
+@{
+    var nomes = ViewBag.Nomes as List<string>;
+    var precos = ViewBag.Precos as List<double>;
+}
+
+<h2>Lista de Produtos</h2>
+
+<table border="1">
+    <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>Preço</th>
+    </tr>
+
+    @for (int i = 0; i < nomes.Count; i++)
+    {
+        string cor = precos[i] < 100 ? "green" : "black";
+
+        <tr style="color: @cor">
+            <td>@(i + 1)</td>
+            <td>@nomes[i]</td>
+            <td>R$ @precos[i]</td>
+        </tr>
+    }
+</table>

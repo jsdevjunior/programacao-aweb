@@ -1,0 +1,64 @@
+@{
+    var disciplinas = ViewBag.Disciplinas as List<string>;
+    var notas = ViewBag.Notas as List<double>;
+    double media = 0;
+    foreach (var n in notas) { media += n; }
+    media = media / notas.Count;
+}
+
+<h2>Boletim Escolar</h2>
+
+<table border="1">
+    <tr>
+        <th>Disciplina</th>
+        <th>Nota</th>
+        <th>Status</th>
+        <th>Conceito</th>
+    </tr>
+
+    @for (int i = 0; i < disciplinas.Count; i++)
+    {
+        double nota = notas[i];
+
+        string conceito = "";
+        @switch (nota)
+        {
+            case double n when n >= 9:
+                conceito = "A";
+                break;
+            case double n when n >= 7:
+                conceito = "B";
+                break;
+            case double n when n >= 5:
+                conceito = "C";
+                break;
+            default:
+                conceito = "D";
+                break;
+        }
+
+        @if (nota >= 5)
+        {
+            <tr>
+                <td>@disciplinas[i]</td>
+                <td>@nota</td>
+                <td style="color: green">Aprovado</td>
+                <td>@conceito</td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td>@disciplinas[i]</td>
+                <td>@nota</td>
+                <td style="color: red">Reprovado</td>
+                <td>@conceito</td>
+            </tr>
+        }
+    }
+
+    <tr>
+        <td colspan="3"><strong>Média Geral</strong></td>
+        <td><strong>@media.ToString("F2")</strong></td>
+    </tr>
+</table>
